@@ -1,0 +1,12 @@
+# Partition 1: Boot (MLO, u-boot.img, zImage, dtb)
+# Note: Increased to 83MB and forced --active flag
+part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=vfat --label boot --active --align 4 --size 83M --sourceparams="loader=u-boot"
+
+# Partition 2: Rootfs A (Primary OS)
+part / --source rootfs --ondisk mmcblk0 --fstype=ext4 --label rootfs_A --align 4096 --size 1024M
+
+# Partition 3: Rootfs B (FOTA Backup)
+part / --source rootfs --ondisk mmcblk0 --fstype=ext4 --label rootfs_B --align 4096 --size 1024M
+
+# Partition 4: Persistent Data
+part /data --ondisk mmcblk0 --fstype=ext4 --label data --align 4096 --size 256M

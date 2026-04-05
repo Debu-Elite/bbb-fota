@@ -1,0 +1,9 @@
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+
+SRC_URI += "file://elf/getpid.S"
+
+do_compile:prepend() {
+    cp ${WORKDIR}/getpid.S ${S}/elf/getpid.S
+    echo 'CFLAGS-getpid.o += -fno-stack-protector' >> ${S}/elf/Makefile
+    echo 'extra-objs += getpid.o' >> ${S}/elf/Makefile
+}
